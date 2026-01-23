@@ -1,35 +1,38 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import Card from "./components/Card";
+import Navbar from "./components/Navbar";
+import About from "./components/About";
+import Wrapper from "./components/Wrapper";
+import woman from "./assets/woman.png";
+import man from "./assets/man.png";
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
-
+  const profiles = [
+    { id: 0, name: "Ava", title: "UX designer", image: woman },
+    { id: 1, name: "Liam", title: "Frontend Developer", image: man },
+    { id: 2, name: "Bob", title: "Backend Developer", image: man },
+    { id: 3, name: "May", title: "Frontend Developer", image: woman },
+  ];
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Navbar />
+      <Wrapper id="about">
+        <About />
+      </Wrapper>
+      <Wrapper id="profiles">
+        <div className="grid">
+          {profiles.map((profile) => (
+            <Card
+              key={profile.id}
+              name={profile.name}
+              title={profile.title}
+              image={profile.image}
+            />
+          ))}
+        </div>
+      </Wrapper>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
