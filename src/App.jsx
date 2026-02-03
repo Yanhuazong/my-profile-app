@@ -35,14 +35,20 @@ function App() {
     setName("");
   };
 
+  const [theme, setTheme] = useState("light");
+
+  const toggleTheme = () => {
+    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
+  };
+
   const filteredProfiles = profiles.filter(
     (profile) =>
       (profile.title === title || !title) &&
       profile.name.toLowerCase().includes(name.toLowerCase()),
   );
   return (
-    <>
-      <Navbar />
+    <div className={theme}>
+      <Navbar theme={theme} toggleTheme={toggleTheme} />
       <Wrapper id="about">
         <About />
         <button onClick={handleClick}>
@@ -73,7 +79,7 @@ function App() {
           )}
         </div>
       </Wrapper>
-    </>
+    </div>
   );
 }
 

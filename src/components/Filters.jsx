@@ -1,9 +1,9 @@
-import "../styles/filter.css"
+import styles from "../styles/filter.module.css";
 
 const Filters = ({titles,title, name, handleChange, handleSearch, handleClick}) => {
     return (
-        <div className="filter-container">
-            <div className="filter-dropdown">
+        <div className={styles.filterContainer}>
+            <div className={styles.filterDropdown}>
                 <label htmlFor="title">Select a title</label>
                 <select id="title" onChange={handleChange} value={title}>
                     <option value="">All</option>
@@ -12,7 +12,7 @@ const Filters = ({titles,title, name, handleChange, handleSearch, handleClick}) 
                     }
                 </select>
             </div>
-            <div className="filter-search">
+            <div className={styles.filterSearch}>
                 <label htmlFor="search">Search a name</label>
                 <input id="search" onChange={handleSearch} value={name}/>
             </div>

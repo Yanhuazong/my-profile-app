@@ -1,12 +1,12 @@
-import "../styles/card.css";
+import styles from "../styles/card.module.css";
 
 const Card = ({name, title, image}) => {
   return (
-    <div className="profile-card">
-        <div className="top">
+    <div className={styles.profileCard}>
+        <div className={styles.top}>
             <img src={image} alt={name} />
         </div>
-        <div className="bottom">
+        <div className={styles.bottom}>
             <p>{name}</p>
             <p>{title}</p>
         </div>
