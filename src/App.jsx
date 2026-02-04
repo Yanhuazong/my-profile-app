@@ -3,18 +3,19 @@ import Navbar from "./components/Navbar";
 import About from "./components/About";
 import Wrapper from "./components/Wrapper";
 import Filters from "./components/Filters";
+import AddProfileForm from "./components/AddProfileForm";
 import woman from "./assets/woman.png";
 import man from "./assets/man.png";
 import { useState } from "react";
 import "./App.css";
 
 function App() {
-  const profiles = [
-    { id: 0, name: "Ava", title: "UX designer", image: woman },
-    { id: 1, name: "Liam", title: "Frontend Developer", image: man },
-    { id: 2, name: "Bob", title: "Backend Developer", image: man },
-    { id: 3, name: "May", title: "Frontend Developer", image: woman },
-  ];
+  const [profiles, setProfiles] = useState([
+    { id: 0, name: "Ava", title: "UX designer", email:"", bio:"", image: woman },
+    { id: 1, name: "Liam", title: "Frontend Developer", email:"", bio:"", image: man },
+    { id: 2, name: "Bob", title: "Backend Developer", email:"", bio:"", image: man },
+    { id: 3, name: "May", title: "Frontend Developer", email:"", bio:"", image: woman },
+  ]);
   const titles = [...new Set(profiles.map((profile) => profile.title))];
   const [clicked, setClicked] = useState(false);
   const handleClick = () => {
@@ -40,7 +41,9 @@ function App() {
   const toggleTheme = () => {
     setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
   };
-
+  const updateProfiles = (profile) =>{
+    setProfiles(pre => ([...pre, profile]))
+  }
   const filteredProfiles = profiles.filter(
     (profile) =>
       (profile.title === title || !title) &&
@@ -54,6 +57,9 @@ function App() {
         <button onClick={handleClick}>
           {clicked ? "Clicked" : "Click me"}
         </button>
+      </Wrapper>
+      <Wrapper id="add-profile">
+        <AddProfileForm onAddProfile={updateProfiles}/>
       </Wrapper>
       <Wrapper id="profiles">
         <Filters
