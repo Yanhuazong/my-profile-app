@@ -85,7 +85,6 @@ const AddProfileForm = ({ onAddProfile }) => {
 
   return (
     <form onSubmit={handleSubmit} className={styles["add-profile"]}>
-        <h2>Add a profile</h2>
       <label htmlFor="name">Name</label>
       <input
         id="name"

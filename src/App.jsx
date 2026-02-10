@@ -1,12 +1,12 @@
-import Card from "./components/Card";
 import Navbar from "./components/Navbar";
-import About from "./components/About";
-import Wrapper from "./components/Wrapper";
-import Filters from "./components/Filters";
-import AddProfileForm from "./components/AddProfileForm";
 import woman from "./assets/woman.png";
 import man from "./assets/man.png";
 import { useState } from "react";
+import { HashRouter, Routes, Route } from "react-router-dom";
+import HomePage from "./pages/HomePage";
+import AboutPage from "./pages/AboutPage";
+import FetchedProfilePage from "./pages/FetchedProfilePage";
+import AddProfilePage from "./pages/AddProfilePage";
 import "./App.css";
 
 function App() {
@@ -16,13 +16,7 @@ function App() {
     { id: 2, name: "Bob", title: "Backend Developer", email:"", bio:"", image: man },
     { id: 3, name: "May", title: "Frontend Developer", email:"", bio:"", image: woman },
   ]);
-  const titles = [...new Set(profiles.map((profile) => profile.title))];
-  const [clicked, setClicked] = useState(false);
-  const handleClick = () => {
-    setClicked((prev) => !prev);
-    setClicked((prev) => !prev);
-    console.log(clicked);
-  };
+
   const [title, setTitle] = useState("");
   const [name, setName] = useState("");
   const handleChangeTitle = (event) => {
@@ -44,48 +38,18 @@ function App() {
   const updateProfiles = (profile) =>{
     setProfiles(pre => ([...pre, profile]))
   }
-  const filteredProfiles = profiles.filter(
-    (profile) =>
-      (profile.title === title || !title) &&
-      profile.name.toLowerCase().includes(name.toLowerCase()),
-  );
   return (
+    <HashRouter>
     <div className={theme}>
       <Navbar theme={theme} toggleTheme={toggleTheme} />
-      <Wrapper id="about">
-        <About />
-        <button onClick={handleClick}>
-          {clicked ? "Clicked" : "Click me"}
-        </button>
-      </Wrapper>
-      <Wrapper id="add-profile">
-        <AddProfileForm onAddProfile={updateProfiles}/>
-      </Wrapper>
-      <Wrapper id="profiles">
-        <Filters
-          titles={titles}
-          title={title}
-          name={name}
-          handleChange={handleChangeTitle}
-          handleSearch={handleSearch}
-          handleClick={handleClear}
-        />
-        <div className="grid">
-          {filteredProfiles.length > 0 ? (
-            filteredProfiles.map((profile) => (
-              <Card
-                key={profile.id}
-                name={profile.name}
-                title={profile.title}
-                image={profile.image}
-              />
-            ))
-          ) : (
-            <p>No profiles selected.</p>
-          )}
-        </div>
-      </Wrapper>
+      <Routes>
+        <Route path="/" element={<HomePage profiles={profiles} handleChangeTitle={handleChangeTitle} handleSearch={handleSearch} handleClear={handleClear} title={title} name={name}/>} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/fetched-profiles" element={<FetchedProfilePage />} />
+        <Route path="/add-profile" element={<AddProfilePage updateProfiles={updateProfiles}/>} />
+      </Routes>
     </div>
+    </HashRouter>
   );
 }
 

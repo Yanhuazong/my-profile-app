@@ -1,12 +1,14 @@
 import styles from "../styles/navbar.module.css";
+import { Link } from "react-router-dom";
 
 const Navbar = ({ theme, toggleTheme }) => {
   return (
     <nav className={styles.navbar}>
       <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#cards">Cards</a></li>
+        <li><Link to="/">Home</Link></li>
+        <li><Link to="/about">About</Link></li>
+        <li><Link to="/add-profile">Add Profile</Link></li>
+        <li><Link to="/fetched-profiles">Other Profiles</Link></li>
       </ul>
       <button className={styles.themeToggle} onClick={toggleTheme}>
         {theme === "light" ? "Dark" : "Light"}
