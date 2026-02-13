@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Filters from "../components/Filters";
 import Card from "../components/Card";
+import { Link } from "react-router-dom";
 
 const FetchedProfiles = () => {
   const [titles, setTitles] = useState([]);
@@ -19,7 +20,6 @@ const FetchedProfiles = () => {
   };
   //Fetch titles
   useEffect(() => {
-
     fetch("https://web.ics.purdue.edu/~zong6/profile-app/get-titles.php")
       .then((res) => res.json())
       .then((res) => setTitles(res.titles));
@@ -31,9 +31,10 @@ const FetchedProfiles = () => {
       `https://web.ics.purdue.edu/~zong6/profile-app/fetch-data-with-filter.php?title=${title}&name=${name}`,
     )
       .then((res) => res.json())
-      .then((res) => {setProfiles(res.profiles);
-        console.log(res)
-  });
+      .then((res) => {
+        setProfiles(res.profiles);
+        console.log(res);
+      });
   }, [title, name]);
 
   return (
@@ -49,12 +50,13 @@ const FetchedProfiles = () => {
       <div className="grid">
         {profiles.length > 0 ? (
           profiles.map((profile) => (
-            <Card
-              key={profile.id}
-              name={profile.name}
-              title={profile.title}
-              image={profile.image_url}
-            />
+            <Link key={profile.id} to={`/fetched-profiles/profile/${profile.id}`}>
+              <Card
+                name={profile.name}
+                title={profile.title}
+                image={profile.image_url}
+              />
+            </Link>
           ))
         ) : (
           <p>No profiles selected.</p>

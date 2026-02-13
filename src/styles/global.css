@@ -25,11 +25,11 @@ main {
     a:hover {
       color: var(--dark-link-hover-color);
     }
-    button {
+    button, .button {
       background-color: var(--button-text-color);
       color: var(--button-background-color);
     }
-    button:hover {
+    button:hover, .button:hover {
       background-color: var(--button-hover-text-color);
       color: var(--button-hover-background-color);
     }
@@ -122,7 +122,7 @@ li {
 }
 
 /* button*/
-button {
+button, .button {
   background-color: var(--button-background-color);
   color: var(--button-text-color);
   border: none;
@@ -133,7 +133,7 @@ button {
     background-color 0.3s,
     color 0.3s;
 }
-button:hover {
+button:hover, .button:hover {
   background-color: var(--button-hover-background-color);
   color: var(--button-hover-text-color);
 }
