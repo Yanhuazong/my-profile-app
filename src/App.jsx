@@ -1,7 +1,7 @@
 import Navbar from "./components/Navbar";
 import woman from "./assets/woman.png";
 import man from "./assets/man.png";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { HashRouter, Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import AboutPage from "./pages/AboutPage";
@@ -10,6 +10,7 @@ import AddProfilePage from "./pages/AddProfilePage";
 import ProfileDetailPage from "./pages/ProfileDetailPage";
 import "./App.css";
 import ProfileLayoutPage from "./pages/ProfileLayoutPage";
+import ModeContext from "./context/ModeContext";
 
 function App() {
   const [profiles, setProfiles] = useState([
@@ -32,18 +33,20 @@ function App() {
     setName("");
   };
 
-  const [theme, setTheme] = useState("light");
+  // const [theme, setTheme] = useState("light");
 
-  const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
-  };
+  // const toggleTheme = () => {
+  //   setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
+  // };
+
+  const {theme} =useContext(ModeContext)
   const updateProfiles = (profile) =>{
     setProfiles(pre => ([...pre, profile]))
   }
   return (
     <HashRouter>
     <div className={theme}>
-      <Navbar theme={theme} toggleTheme={toggleTheme} />
+      <Navbar />
       <Routes>
         <Route path="/" element={<HomePage profiles={profiles} handleChangeTitle={handleChangeTitle} handleSearch={handleSearch} handleClear={handleClear} title={title} name={name}/>} />
         <Route path="/about" element={<AboutPage />} />
