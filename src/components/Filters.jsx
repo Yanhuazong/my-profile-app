@@ -1,6 +1,7 @@
 import styles from "../styles/filter.module.css";
+import { memo } from "react";
 
-const Filters = ({titles,title, name, handleChange, handleSearch, handleClick}) => {
+const Filters = memo(({titles,title, name, handleChange, handleSearch, handleClick}) => {
     return (
         <div className={styles.filterContainer}>
             <div className={styles.filterDropdown}>
@@ -20,5 +21,5 @@ const Filters = ({titles,title, name, handleChange, handleSearch, handleClick}) 
         </div>
     )
 
-}
+})
 export default Filters;

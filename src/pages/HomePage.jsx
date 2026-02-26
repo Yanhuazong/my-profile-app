@@ -1,10 +1,20 @@
 import Card from "../components/Card";
 import Wrapper from "../components/Wrapper";
 import Filters from "../components/Filters";
+import { useMemo } from "react";
 
-function HomePage({ profiles, handleChangeTitle, handleSearch, handleClear, title, name }) {
-
-  const titles = [...new Set(profiles.map((profile) => profile.title))];
+function HomePage({
+  profiles,
+  handleChangeTitle,
+  handleSearch,
+  handleClear,
+  title,
+  name,
+}) {
+  const titles = useMemo(
+    () => [...new Set(profiles.map((profile) => profile.title))],
+    [profiles],
+  );
 
   const filteredProfiles = profiles.filter(
     (profile) =>
@@ -13,30 +23,30 @@ function HomePage({ profiles, handleChangeTitle, handleSearch, handleClear, titl
   );
   return (
     <Wrapper id="profiles">
-        <h1>Profiles</h1>
-        <Filters
-          titles={titles}
-          title={title}
-          name={name}
-          handleChange={handleChangeTitle}
-          handleSearch={handleSearch}
-          handleClick={handleClear}
-        />
-        <div className="grid">
-          {filteredProfiles.length > 0 ? (
-            filteredProfiles.map((profile) => (
-              <Card
-                key={profile.id}
-                name={profile.name}
-                title={profile.title}
-                image={profile.image}
-              />
-            ))
-          ) : (
-            <p>No profiles selected.</p>
-          )}
-        </div>
-      </Wrapper>
+      <h1>Profiles</h1>
+      <Filters
+        titles={titles}
+        title={title}
+        name={name}
+        handleChange={handleChangeTitle}
+        handleSearch={handleSearch}
+        handleClick={handleClear}
+      />
+      <div className="grid">
+        {filteredProfiles.length > 0 ? (
+          filteredProfiles.map((profile) => (
+            <Card
+              key={profile.id}
+              name={profile.name}
+              title={profile.title}
+              image={profile.image}
+            />
+          ))
+        ) : (
+          <p>No profiles selected.</p>
+        )}
+      </div>
+    </Wrapper>
   );
 }
 
